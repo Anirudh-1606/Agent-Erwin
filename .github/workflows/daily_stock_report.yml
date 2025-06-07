@@ -1,16 +1,21 @@
-name: Daily Agent Erwin Report
+name: Agent Erwin Daily Stock Report
 
 on:
   schedule:
-    - cron: "0 3 * * *" # 8:30am IST is 03:00 UTC; runs daily at 8:30am IST
-  workflow_dispatch: # (optional: allows manual runs)
+    - cron: "0 3 * * *" # Runs at 8:30 IST (3:00 UTC); adjust as needed
+  workflow_dispatch: # Lets you run manually
 
 jobs:
-  stock-report:
+  daily-report:
     runs-on: ubuntu-latest
-
+    env:
+      GROWW_API_TOKEN: ${{ secrets.GROWW_API_TOKEN }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+      AGENT_ERWIN_BOT: ${{ secrets.AGENT_ERWIN_BOT }}
+      CHAT_ID: ${{ secrets.CHAT_ID }}
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -23,12 +28,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run daily report
-        env:
-          GROWW_API_TOKEN: ${{ secrets.GROWW_API_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
-          AGENT_ERWIN_BOT: ${{ secrets.AGENT_ERWIN_BOT }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
+      - name: Run Agent Erwin daily report
         run: |
           python main.py
