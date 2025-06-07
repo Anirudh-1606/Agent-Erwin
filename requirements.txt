@@ -1,5 +1,5 @@
 growwapi
 openai
 beautifulsoup4
-requests
 schedule
+requests
