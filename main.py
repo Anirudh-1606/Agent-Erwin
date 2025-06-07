@@ -4,12 +4,14 @@ from growwapi import GrowwAPI
 from openai import OpenAI
 from bs4 import BeautifulSoup
 import re
+import schedule, time
+import os
 
 GROWW_API_TOKEN = os.environ.get('GROWW_API_TOKEN')
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 NEWSAPI_KEY  = os.environ.get('NEWSAPI_KEY')
 AGENT_ERWIN_BOT = os.environ.get('AGENT_ERWIN_BOT')
-CHAT_ID = "736197185"
+CHAT_ID = os.environ.get('CHAT_ID')
 
 groww = GrowwAPI(GROWW_API_TOKEN)
 
@@ -267,5 +269,10 @@ def main():
         print(f"\n--- {sym} ---\nPrompt:\n{prompt}\n----\nVerdict:\n{verdict}\n")
 
 
-if __name__ == "__main__":
+def job():
     main()
+
+schedule.every().day.at("08:30").do(job)
+while True:
+    schedule.run_pending()
+    time.sleep(60)
