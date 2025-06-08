@@ -237,7 +237,9 @@ def send_report_block(text):
 
 def main():
     holdings_response = groww.get_holdings_for_user(timeout=8)
+    print("Holdings response received:", holdings_response)  # <-- ADD THIS
     stocks = holdings_response['holdings']
+    print("Stocks to process:", stocks) 
     header = "<b>📊 AI Deep Dive Stock Report (Pro Version)</b>"
     send_report_block(header)
     client = OpenAI(api_key=OPENAI_API_KEY)
