@@ -236,6 +236,7 @@ def send_report_block(text):
         print("Telegram send error:", e)
 
 def main():
+    print("hELLO LAVDE")
     holdings_response = groww.get_holdings_for_user(timeout=8)
     print("Holdings response received:", holdings_response)  # <-- ADD THIS
     stocks = holdings_response['holdings']
