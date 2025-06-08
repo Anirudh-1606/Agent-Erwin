@@ -272,10 +272,5 @@ def main():
         print(f"\n--- {sym} ---\nPrompt:\n{prompt}\n----\nVerdict:\n{verdict}\n")
 
 
-def job():
+if __name__ == "__main__":
     main()
-
-schedule.every().day.at("08:30").do(job)
-while True:
-    schedule.run_pending()
-    time.sleep(60)
